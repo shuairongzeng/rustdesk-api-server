@@ -72,7 +72,6 @@
 
 ![window直接运行版](/images/windows_run.png)
 
-
 ### 方法2：代码运行
 
 ```bash
@@ -96,6 +95,47 @@ from pysqlite3 import dbapi2 as Database # 启用pysqlite3
 ```
 
 ### 方法3：Docker 运行
+
+#### 前置要求
+
+在 Linux 系统上部署需要先安装以下组件：
+
+**1. 安装 Docker Engine**
+
+根据你的 Linux 发行版选择安装方式：
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install docker.io
+
+# CentOS/RHEL/Fedora
+sudo yum install docker
+# 或者新版本使用
+sudo dnf install docker
+```
+
+**2. 安装 Docker Compose**
+
+```bash
+# 方法1：通过包管理器安装
+# Ubuntu/Debian
+sudo apt-get install docker-compose-plugin
+
+# CentOS/RHEL/Fedora  
+sudo yum install docker-compose-plugin
+
+# 方法2：手动安装
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+**3. 启动 Docker 服务**
+
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+```
 
 #### Docker方法1：自行构建
 ```bash
@@ -133,7 +173,7 @@ services:
     image: ghcr.io/kingmo888/rustdesk-api-server:latest
     environment:
       - CSRF_TRUSTED_ORIGINS=http://yourdomain.com:21114 #防跨域信任来源，可选
-      - ID_SERVER=yourdomain.com #Web控制端使用的ID服务器
+      - ID_SERVER=yourdomain.com #Web控制端使用的ID服务器，必须配置
     volumes:
       - /yourpath/db:/rustdesk-api-server/db #修改/yourpath/db为你宿主机数据库挂载目录
       - /etc/timezone:/etc/timezone:ro
@@ -143,6 +183,31 @@ services:
       - "21114:21114"
     restart: unless-stopped
 ```
+
+**部署步骤：**
+
+1. 创建 `docker-compose.yaml` 文件，复制上述内容
+2. 修改配置：
+   - 将 `yourdomain.com` 替换为你的实际域名或IP地址
+   - 将 `/yourpath/db` 替换为你的实际数据库存储路径
+3. 启动服务：
+   ```bash
+   docker-compose up -d
+   ```
+4. 验证部署：
+   ```bash
+   # 检查容器状态
+   docker ps
+   
+   # 查看日志
+   docker logs rustdesk-api-server
+   ```
+5. 访问 `http://你的服务器IP:21114` 即可使用
+
+**注意事项：**
+- 确保防火墙开放 21114 端口
+- `ID_SERVER` 环境变量用于配置 Web 控制端的域名，如不配置会自动使用当前访问的主机名
+- 如果使用 IP 地址，直接填写 IP 即可，如：`ID_SERVER=192.168.1.100`
 
 ## 环境变量
 

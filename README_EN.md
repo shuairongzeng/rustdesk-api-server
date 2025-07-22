@@ -76,6 +76,47 @@ from pysqlite3 import dbapi2 as Database # enable pysqlite3
 
 ### Method 3: Docker Run
 
+#### Prerequisites
+
+To deploy on Linux systems, you need to install the following components first:
+
+**1. Install Docker Engine**
+
+Choose installation method based on your Linux distribution:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install docker.io
+
+# CentOS/RHEL/Fedora
+sudo yum install docker
+# or use for newer versions
+sudo dnf install docker
+```
+
+**2. Install Docker Compose**
+
+```bash
+# Method 1: Install via package manager
+# Ubuntu/Debian
+sudo apt-get install docker-compose-plugin
+
+# CentOS/RHEL/Fedora  
+sudo yum install docker-compose-plugin
+
+# Method 2: Manual installation
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+**3. Start Docker Service**
+
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
 #### Docker Method 1: Build Yourself
 ```bash
 git clone https://github.com/kingmo888/rustdesk-api-server.git
@@ -93,7 +134,7 @@ docker run -d \
   --name rustdesk-api-server \
   -p 21114:21114 \
   -e CSRF_TRUSTED_ORIGINS=http://yourdomain.com:21114 \ #Cross-origin trusted source, optional
-  -e ID_SERVER=yourdomain.com \ #ID server used by the web control terminal
+  -e ID_SERVER=yourdomain.com \ #ID server used by the web control terminal, required
   -v /yourpath/db:/rustdesk-api-server/db \ #Modify /yourpath/db to your host database mount directory
   -v /etc/timezone:/etc/timezone:ro \
   -v /etc/localtime:/etc/localtime:ro \
@@ -112,7 +153,7 @@ services:
     image: ghcr.io/kingmo888/rustdesk-api-server:latest
     environment:
       - CSRF_TRUSTED_ORIGINS=http://yourdomain.com:21114 #Cross-origin trusted source, optional
-      - ID_SERVER=yourdomain.com #ID server used by the web control terminal
+      - ID_SERVER=yourdomain.com #ID server used by the web control terminal, required
     volumes:
       - /yourpath/db:/rustdesk-api-server/db #Modify /yourpath/db to your host database mount directory
       - /etc/timezone:/etc/timezone:ro
@@ -122,6 +163,31 @@ services:
       - "21114:21114"
     restart: unless-stopped
 ```
+
+**Deployment Steps:**
+
+1. Create `docker-compose.yaml` file and copy the above content
+2. Modify configuration:
+   - Replace `yourdomain.com` with your actual domain or IP address
+   - Replace `/yourpath/db` with your actual database storage path
+3. Start service:
+   ```bash
+   docker-compose up -d
+   ```
+4. Verify deployment:
+   ```bash
+   # Check container status
+   docker ps
+   
+   # View logs
+   docker logs rustdesk-api-server
+   ```
+5. Access `http://your-server-ip:21114` to use
+
+**Notes:**
+- Ensure firewall opens port 21114
+- `ID_SERVER` environment variable is used to configure the domain for web control terminal. If not configured, it will automatically use the current access hostname
+- If using IP address, fill in the IP directly, e.g.: `ID_SERVER=192.168.1.100`
 
 ## Environment Variables
 
