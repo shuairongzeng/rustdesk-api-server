@@ -5,7 +5,7 @@
 1、源码安装（如果采用源码安装的跳过1、2步骤）
 ```
 # 将代码克隆到本地
-git clone https://github.com/kingmo888/rustdesk-api-server.git
+git clone https://github.com/shuairongzeng/rustdesk-api-server.git
 # 进入目录
 cd rustdesk-api-server
 # 安装依赖

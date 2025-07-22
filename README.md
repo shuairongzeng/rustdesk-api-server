@@ -1,7 +1,7 @@
 # rustdesk-api-server
 
 
-[The English explanation is available by clicking here.](https://github.com/kingmo888/rustdesk-api-server/blob/master/README_EN.md)
+[The English explanation is available by clicking here.](https://github.com/shuairongzeng/rustdesk-api-server/blob/master/README_EN.md)
 
 <p align="center">
     <i>一个 python 实现的 Rustdesk API 接口，支持 WebUI 管理</i>
@@ -76,7 +76,7 @@
 
 ```bash
 # 将代码克隆到本地
-git clone https://github.com/kingmo888/rustdesk-api-server.git
+git clone https://github.com/shuairongzeng/rustdesk-api-server.git
 # 进入目录
 cd rustdesk-api-server
 # 安装依赖
@@ -139,7 +139,7 @@ sudo systemctl enable docker
 
 #### Docker方法1：自行构建
 ```bash
-git clone https://github.com/kingmo888/rustdesk-api-server.git
+git clone https://github.com/shuairongzeng/rustdesk-api-server.git
 cd rustdesk-api-server
 docker compose --compatibility up --build -d
 ```
@@ -160,7 +160,7 @@ docker run -d \
   -v /etc/localtime:/etc/localtime:ro \
   --network bridge \
   --restart unless-stopped \
-  ghcr.io/kingmo888/rustdesk-api-server:latest
+  ghcr.io/shuairongzeng/rustdesk-api-server:latest
 ```
 
 docker-compose 方式：
@@ -170,7 +170,7 @@ version: "3.8"
 services:
   rustdesk-api-server:
     container_name: rustdesk-api-server
-    image: ghcr.io/kingmo888/rustdesk-api-server:latest
+    image: ghcr.io/shuairongzeng/rustdesk-api-server:latest
     environment:
       - CSRF_TRUSTED_ORIGINS=http://yourdomain.com:21114 #防跨域信任来源，可选
       - ID_SERVER=yourdomain.com #Web控制端使用的ID服务器，必须配置
@@ -301,7 +301,7 @@ services:
 - [rustdesk-server](https://github.com/rustdesk/rustdesk-server)
 
 ## Stargazers over time
-[![Stargazers over time](https://starchart.cc/kingmo888/rustdesk-api-server.svg?variant=adaptive)](https://starchart.cc/kingmo888/rustdesk-api-server)
+[![Stargazers over time](https://starchart.cc/shuairongzeng/rustdesk-api-server.svg?variant=adaptive)](https://starchart.cc/shuairongzeng/rustdesk-api-server)
 
 
 ## 联络我

@@ -4,7 +4,7 @@
 
 ## Please use the latest version 1.2.3 of the client.
 
-[点击这里查看中文说明。](https://github.com/kingmo888/rustdesk-api-server/blob/master/README.md)
+[点击这里查看中文说明。](https://github.com/shuairongzeng/rustdesk-api-server/blob/master/README.md)
 
 <p align="center">
     <i>A Rustdesk API interface implemented in Python, with WebUI management support</i>
@@ -56,7 +56,7 @@ Only supports Windows, please go to the release to download, no need to install 
 
 ```bash
 # Clone the code locally
-git clone https://github.com/kingmo888/rustdesk-api-server.git
+git clone https://github.com/shuairongzeng/rustdesk-api-server.git
 # Enter the directory
 cd rustdesk-api-server
 # Install dependencies
@@ -119,7 +119,7 @@ sudo systemctl enable docker
 
 #### Docker Method 1: Build Yourself
 ```bash
-git clone https://github.com/kingmo888/rustdesk-api-server.git
+git clone https://github.com/shuairongzeng/rustdesk-api-server.git
 cd rustdesk-api-server
 docker compose --compatibility up --build -d
 ```
@@ -140,7 +140,7 @@ docker run -d \
   -v /etc/localtime:/etc/localtime:ro \
   --network bridge \
   --restart unless-stopped \
-  ghcr.io/kingmo888/rustdesk-api-server:latest
+  ghcr.io/shuairongzeng/rustdesk-api-server:latest
 ```
 
 docker-compose method:
@@ -150,7 +150,7 @@ version: "3.8"
 services:
   rustdesk-api-server:
     container_name: rustdesk-api-server
-    image: ghcr.io/kingmo888/rustdesk-api-server:latest
+    image: ghcr.io/shuairongzeng/rustdesk-api-server:latest
     environment:
       - CSRF_TRUSTED_ORIGINS=http://yourdomain.com:21114 #Cross-origin trusted source, optional
       - ID_SERVER=yourdomain.com #ID server used by the web control terminal, required
@@ -273,4 +273,4 @@ services:
 - [rustdesk-server](https://github.com/rustdesk/rustdesk-server)
 
 ## Stargazers over time
-[![Stargazers over time](https://starchart.cc/kingmo888/rustdesk-api-server.svg?variant=adaptive)](https://starchart.cc/kingmo888/rustdesk-api-server)
+[![Stargazers over time](https://starchart.cc/shuairongzeng/rustdesk-api-server.svg?variant=adaptive)](https://starchart.cc/shuairongzeng/rustdesk-api-server)
